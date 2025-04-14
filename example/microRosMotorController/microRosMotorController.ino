@@ -156,7 +156,7 @@ void setup() {
   
   Serial.begin(115200);
   Serial.println("Initialising");
-  set_microros_serial_transports();
+  set_microros_transports();
   delay(2000);
 
   // Initialize motors
