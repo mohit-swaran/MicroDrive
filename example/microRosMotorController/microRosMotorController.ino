@@ -1,7 +1,5 @@
-#include <Arduino.h>
-#include <micro_ros_platformio.h>
+#include <micro_ros_arduino.h>
 
-#include <stdio.h>
 #include <rcl/rcl.h>
 #include <rcl/error_handling.h>
 #include <rclc/rclc.h>
@@ -10,7 +8,7 @@
 #include <micro_ros_utilities/type_utilities.h>
 #include <micro_ros_utilities/string_utilities.h>
 
-#include <motorDriver.h>
+#include <microDrive.h>
 
 #include <geometry_msgs/msg/twist.h>
 #include <diagnostic_msgs/msg/diagnostic_status.h>
@@ -32,7 +30,6 @@
 #define M3ENC_B_PIN    13
 
 #define LED_PIN 13
-
 
 motor motor1(M1PWM_L_PIN, M1PWM_R_PIN, M1ENC_A_PIN, M1ENC_B_PIN);
 motor motor2(M2PWM_L_PIN, M2PWM_R_PIN, M2ENC_A_PIN, M2ENC_B_PIN);
@@ -159,7 +156,7 @@ void setup() {
   
   Serial.begin(115200);
   Serial.println("Initialising");
-  set_microros_serial_transports(Serial);
+  set_microros_serial_transports();
   delay(2000);
 
   // Initialize motors
@@ -217,6 +214,8 @@ void loop() {
   if (micros() - pidTimer >= pidInterval)
     {
         pidTimer = micros();
-        motor1.updatePI(); motor2.updatePI();motor3.updatePI();
+        motor1.updatePI(); 
+        motor2.updatePI();
+        motor3.updatePI();
     }
 }
